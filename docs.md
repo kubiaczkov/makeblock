@@ -124,6 +124,52 @@ Także, zanim będziemy w stanie wykonać pierwsze czynności musimy zapoznać s
 
 > Każde urządzenie będzie wymagało wykorzystania odpowiednich **obiektów** w programie. Niestety dokumentacja jest mocno okrojona, w zasadzie to jej nie ma.
 
+### DEBUGOWANIE KODU
+
+Mikrokontroller Arduino UNO domyślnie nie wspiera możliwości debugowania kodu, jednak jest na to sposób :)
+
+Pracując w środowisku Arduino IDE, istnieje możliwość korzystania z tzw. **Serial Monitor** i to właśnie on posłuży nam do debugowania naszego kodu. Aby zobaczyć wyniki musimy trochę zadziałać. Po pierwsze sprawdźmy gdzie wizualnie znajduje się ten monitor.
+
+[<img src="./ss/Screenshot_6.png" width="420"/>](./ss/Screenshot_6.png)
+
+Następnie musimy dodać trochę kodu. Po pierwsze trzeba połączyć nasz program z monitorem. 
+
+```cpp
+Serial.begin(9600);
+```
+<span style="color:red; font-weight: 700;"> Tą linię kodu musimy umieścić wewnątrz funkcji _setup_ </span>
+
+Następnie bez problemu możemy wykorzystać metody wypisujące aby sprawdzić co tam się dzieje w naszym kodzie.
+
+```cpp
+int sensorData = 0;
+Serial.print("Sensor Data = ");
+Serial.println(sensorData);
+```
+
+Możemy również wykorzystać tą funkcjonalność do odczytywania danych i wykorzystania w naszym programie przy pomocy metody _Serial.read()_
+
+Przyklad:
+
+```cpp
+int incomingByte = 0; // tutaj zapiszemy wczytaną informację
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  // wyślij dane tylko jeżeli jakieś zostaną przekazane
+  if (Serial.available() > 0) {
+    // wczytaj wprowadzony B:
+    incomingByte = Serial.read();
+
+    // say what you got:
+    Serial.print("I received: ");
+    Serial.println(incomingByte, DEC);
+  }
+}
+```
 
 ## Przegląd urządzeń
 
@@ -140,7 +186,7 @@ Aby użyć w naszym programie diod musimy na początku programu dodać obiekt kl
 MeRGBLed rgbled_7(7, 2);
 ```
 
-Następnie wewnątrz funkcji setup musimy dopisać
+Następnie wewnątrz funkcji setup **musimy dopisać**
 
 ```cpp
 rgbled_7.fillPixelsBak(0, 2, 1);
@@ -152,6 +198,8 @@ Po takiej konfiguracji w dalszej części programu w prosty sposób będziemy mo
 rgbled_7.setColor(0, 255, 0, 0);
 rgbled_7.show();
 ```
+> TIP: **wygaszenie diod** można uzyskać poprzez wywolanie koloru czarnego tj. **rbg(0,0,0)**
+
 Powyższy kod wyświetli nam kolor **czerwony** na oby diodach. Metoda _setColor_ ma następującą składnie _setColor(opt, R, G, B)_.
 
 Wartości _opt_ mogą być następujące:
@@ -242,3 +290,25 @@ Ostanią metodą z pakiety Ekran LED - jest nic bardziej prostrzego, a konkretni
 ```cpp
 ledMtx_1.clearScreen()
 ```
+<span style="color:red; font-weight: 700;"> Ekran LED posiada również wspomnianą funkcję wyświetlania bitmapy, jednak nie będziemy jej używać z poziomu czystego kodu. Można potestować tą funkcjonalność w blokowym systemie budowania oprogramowania dla mBot. </span>
+
+### No. 4 - X
+***
+
+
+
+## STEROWANIE UŻYTKOWNIKA
+
+Nasz pakiet daje nam możliwość na zewnętrzne sterowanie robotem w dwojaki sposób. Pierwszy to **przycisk na płytce**
+
+[<img src="./ss/przycisk_na_plytce.jpg" width="400"/>](./ss/przycisk_na_plytce.jpg)
+
+a drugi to dołączany osobno do pakietu **pilot**
+
+[<img src="./ss/pilot.jpg" width="400"/>](./ss/pilot.jpg)
+
+### Oba te urządzenia możemy wykorzystać do sterowania naszym robotem
+
+Ale właściwie jak to działa?
+
+## KONSOLA - SERIAL MONITOR
