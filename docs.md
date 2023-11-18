@@ -7,7 +7,9 @@ Będzie trzeba prawdopodobnie zuploadować ss żeby wygenerować pdfa
 
 Informacje zawarte w tym podręczniku mogą zawierać błędy, dziękuję za wyrozumiałość.
 
-IDE wykorzystywane do programowania urządzenia mBot v1.1. dostępne pod linkiem: https://ide.mblock.cc/
+IDE wykorzystywane do **programowania urządzenia online** mBot v1.1. dostępne pod linkiem: https://ide.mblock.cc/
+
+Kiedy chcemy używać jedynie kodu Arduino o wiele wygodniej będzie nam pracować w **Arduino IDE**, instrukcja konfiguracji oprogramowania znajduje się w folderze dosc.
 
 ## Instalacja wymaganego oprogramowania
 
@@ -56,7 +58,7 @@ Naszym oczom ukaże się edytor tekstowy z otwartym plikiem **mcore.ino**
 
 Każy napisany przez nas program, będzie zaczynał się od identycznej składni, a konkretnie
 
-```ino
+```cpp
 #include <MeMCore.h>
 #include <Arduino.h>
 #include <Wire.h>
@@ -88,7 +90,7 @@ Ten schemat posiada cztery zaimplemetowane funkcje:
 
 Przykład:
 
-```ino
+```cpp
 void setup() {
   while(true) {
     // code here
@@ -134,19 +136,19 @@ W naszym urządzeniu diody LED występują w parze i pozwalają wyświetlać dow
 
 Aby użyć w naszym programie diod musimy na początku programu dodać obiekt klasy _MeRBGLed_.
 
-```ino
+```cpp
 MeRGBLed rgbled_7(7, 2);
 ```
 
 Następnie wewnątrz funkcji setup musimy dopisać
 
-```ino
+```cpp
 rgbled_7.fillPixelsBak(0, 2, 1);
 ```
 
 Po takiej konfiguracji w dalszej części programu w prosty sposób będziemy mogli wykorzystać diody LED. Dwie podstawowe funkcje:
 
-```ino 
+```cpp 
 rgbled_7.setColor(0, 255, 0, 0);
 rgbled_7.show();
 ```
@@ -167,13 +169,13 @@ Metoda _show_ odpowieda za wyświetlenie ustalonego koloru.
 
 Robot **mBot** posiada również buzzer pozwalający odtwarzać dźwięki! Aby móc być usłyszanym, również potrzebujemy użyć odpowiedniego obiektu.
 
-```ino
+```cpp
 MeBuzzer buzzer;
 ```
 
 W tym przypadku użycie jest jeszcze prostrze! Wystarczy nam opanować jedną funkcję _tone_.
 
-```ino 
+```cpp 
 buzzer.tone(950, 0.6 * 1000);
 ```
 Metoda _tone_ ma następującą skladnie _tone(Hz, duration)_. Czyli powyższy kod przez 0.6 sekundy będzie nam odgrywać dźwięk o częstotliwości 950Hz.
@@ -184,3 +186,59 @@ Metoda _tone_ ma następującą skladnie _tone(Hz, duration)_. Czyli powyższy k
 > TIP: tak samo możemy wywoływanie dźwięków mieszać z przerwami _delay_
 
 
+### No. 3 - EKRAN LED
+***
+
+W naszym wyposażeniu znajduje się coś co pozwoli nam w czytelny sposób przedstawić różnego rodzaju informację. Jest to ekran LED. 
+
+Ekran jest zbudowany ze **105** diod (15x7), co pozwala nam wyświetlać za jego pomocą liczby, **maksymalnie 4 cyfrowe**, teksty (o ile się zmieszczą), czas w formacie **HH:MM** oraz różnego rodzaju **bitmapy**.
+
+Aby rozpocząć pracę z ekranem LED musimy jak zawsze stworzyć odpowiedni obiekt. Parametr przekazywany do konstruktora to **numer portu** do którego podłączony jest ekran.
+
+```cpp
+MeLEDMatrix ledMtx_1(1);
+```
+
+#### Przypadki użycia
+
+Zacznijmy od tego, że ekran może działać w dwóch konfiguracjach świetlnych. Wyświetlana zawartość jest rysowana lub jest obrysowywana. Parametr metody _setColorIndex_ przyjmuje wartości **true** (rysowanie - domyślne) lub **false** (obrysowywanie).
+
+```cpp
+void MeLEDMatrix::setColorIndex(bool Color_Number)
+```
+
+Z samych konfiguracji świetlnych, jesteśmy w stanie również zmienić jasność. Zakres jaśności jest od **0 do 8**, gdzie 0 to brak jaśności, a 8 to najjaśniejsza konfiguracja.
+
+```cpp
+void MeLEDMatrix::setBrightness(uint8_t Bright)
+```
+
+Dostępną przestrzeń roboczą możemy kreatywnie wykorzystywać do wyświetlania krotkich komunikatów. Pozwoli nam na to metoda _drawStr_, do wywołania której potrzebujemy 3 parametry. Pierwsze dwa odpowiedają za **pozycję startową** pisania, jest to wyzanczenie dolnego lewego rogu.
+
+>TIP: można wartość _X_Position_ ustawić na wartość -1 aby wykorzystać całą dostępna przestrzeń rysowania
+
+Przeci parametr wywołania to najprościej mówiąc nasz tekst, będziemy go generować w specjalny sposób. Dokumentacja przedstawia strukturę metody w taki sposób _void MeLEDMatrix::drawStr(int16_t X_position, int8_t Y_position, const char *str)_. Poniżej przykład użycia:
+
+```cpp
+ledMtx_1.drawStr(0, 7, String("XYZ").c_str());
+```
+
+Kolejną bradzo przydatną możliwościa jest wyświetlanie czasu. Konkretnie w **formacie HH:MM**. Oczywiście łatwo zauważyć, że przy odpowiedniej kombinacji nie będzie problemu z przerobieniem wyświetlanego formatu na **MM:SS**. Schemat metody według dokumentacji _void MeLEDMatrix::showClock(uint8_t hour, uint8_t minute, bool point_flag)_. Poniżej przykład użycia:
+
+```cpp
+ledMtx_1.showClock(2, 30);
+```
+
+Dla ułatwienia wyświetlania wartości liczbowych mamy specjalnie przeznaczoną do tego metodę _showNum_. Wymaga ona jednego parametru, którym jest rzeczona wartość - może ona przyjmować **typ int lub float**. Musimy jednak pamiętać, że kropka zajmie nam jedną pozycję na ekranie. Przykład użycia:
+
+```cpp
+ledMtx_1.showNum(1234);
+_delay(1);
+ledMtx_1.showNum(10.1); // 4 znaki wraz z kropką
+```
+
+Ostanią metodą z pakiety Ekran LED - jest nic bardziej prostrzego, a konkretnie to czyszczenie tego ekranu. Metoda _clearScreen_ czyści nam ekran.
+
+```cpp
+ledMtx_1.clearScreen()
+```
