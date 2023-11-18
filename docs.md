@@ -2,8 +2,7 @@ Wygeneruj pdf za pomocą https://www.markdowntopdf.com/
 
 Będzie trzeba prawdopodobnie zuploadować ss żeby wygenerować pdfa
 
-# Podręcznik użytkownika dla **mBot** przy użycia języku **Arduino**
-
+<h1 style="color:#7fba00">Podręcznik użytkownika dla <b>mBot</b> przy użycia języku <span style="color:#00a4ef">Arduino</span></h1>
 
 Informacje zawarte w tym podręczniku mogą zawierać błędy, dziękuję za wyrozumiałość.
 
@@ -11,31 +10,31 @@ IDE wykorzystywane do **programowania urządzenia online** mBot v1.1. dostępne 
 
 Kiedy chcemy używać jedynie kodu Arduino o wiele wygodniej będzie nam pracować w **Arduino IDE**, instrukcja konfiguracji oprogramowania znajduje się w folderze dosc.
 
-## Instalacja wymaganego oprogramowania
+<h2 style="color:#ffb900">Instalacja wymaganego oprogramowania</h2> 
 
 Jeżeli chcemy wgrywać programy do naszego mBota przy pomocy połączenia kablowego USB A->B, musimy uprzednio zainstalować odpowiednie oprogramowanie.
 
 >Instalator oprogramowania _mLink_ dostępny jest pod linkiem: https://www.mblock.cc/en/download/mlink/
 
-![](./ss/Screenshot_1.png)
+[<img src="./ss/Screenshot_1.png" width="580"/>](./ss/Screenshot_1.png)
 
 Wybieramy oprogramowanie odpowiednie dla naszego systemu. 
 
-<span style="color:red; font-weight: 700;"> Poniższe czynności na podłączonym oraz uruchomionym urządzeniu! </span>
+<span style="color:#f25022; font-weight: 700;"> Poniższe czynności na podłączonym oraz uruchomionym urządzeniu! </span>
 
 Przechodząc poprzez proces instalacji, poza samym oprogramowaniem mLink instalujemy również odpowiednie sterowniki.
 
-![](./ss/Screenshot_3.png)
+[<img src="./ss/Screenshot_3.png" width="380"/>](./ss/Screenshot_3.png)
 
-## Połączenie z urządzeniem w IDE
+<h2 style="color:#ffb900">Połączenie z urządzeniem w IDE</h2>
 
 Aby móc importować nasze programy do urządzenia mBot, musimy je połączyć wewnątrz oprogramowania do kodowania. Robimy to wybierając u dołu okranu przycisk "połączenie"
 
-![](./ss/Screenshot_2.png)
+[<img src="./ss/Screenshot_2.png" width="380"/>](./ss/Screenshot_2.png)
 
 Zatwierdzamy konfigurację połączenia na porcie **COM3** przy pomocy **USB**. W tym momencie nasze urządzenia powinny być ze sobą połączone.
 
-# Programowanie
+<h1 style="color:#7fba00">PROGRAMOWANIE</h1>
 
 IDE mBlock umożliwia tworzenie programów na dwa sposoby
 
@@ -52,9 +51,9 @@ Aby uruchomić napisany program, trzeba aktywować odpowiednią zakładkę "Ardu
 
 Naszym oczom ukaże się edytor tekstowy z otwartym plikiem **mcore.ino**
 
-<span style="color:red; font-weight: 700;"> UWAGA: nie zmieniamy jego nazwy ani rozszerzenia! </span>
+<span style="color:#f25022; font-weight: 700;"> UWAGA: nie zmieniamy jego nazwy ani rozszerzenia! </span>
 
-## HELLO WORLD
+<h2 style="color:#ffb900">HELLO WORLD</h2>
 
 Każy napisany przez nas program, będzie zaczynał się od identycznej składni, a konkretnie
 
@@ -137,7 +136,7 @@ Następnie musimy dodać trochę kodu. Po pierwsze trzeba połączyć nasz progr
 ```cpp
 Serial.begin(9600);
 ```
-<span style="color:red; font-weight: 700;"> Tą linię kodu musimy umieścić wewnątrz funkcji _setup_ </span>
+<span style="color:#f25022; font-weight: 700;"> Tą linię kodu musimy umieścić wewnątrz funkcji _setup_ </span>
 
 Następnie bez problemu możemy wykorzystać metody wypisujące aby sprawdzić co tam się dzieje w naszym kodzie.
 
@@ -147,31 +146,33 @@ Serial.print("Sensor Data = ");
 Serial.println(sensorData);
 ```
 
-Możemy również wykorzystać tą funkcjonalność do odczytywania danych i wykorzystania w naszym programie przy pomocy metody _Serial.read()_
+Możemy również wykorzystać tą funkcjonalność do odczytywania danych i wykorzystania w naszym programie przy pomocy metody _Serial.readString()_. Istnieją inne sposoby odczytu danych jednak ten tekstowy będzie dla nas najprzyjemniejszy.
 
 Przyklad:
 
 ```cpp
-int incomingByte = 0; // tutaj zapiszemy wczytaną informację
-
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  // wyślij dane tylko jeżeli jakieś zostaną przekazane
-  if (Serial.available() > 0) {
-    // wczytaj wprowadzony B:
-    incomingByte = Serial.read();
+  Serial.println("Wprowadź dane:");
+  while (Serial.available() == 0) {}     // Czekaj na dane
+  String teststr = Serial.readString();  // Odczytaj dane
+  teststr.trim();                        // Usuń co niepotrzebne
 
-    // say what you got:
-    Serial.print("I received: ");
-    Serial.println(incomingByte, DEC);
+  // Wykorzystanie wczytanych danych
+  if (teststr == "#f25022") {
+    Serial.println("A primary color");
+  } else {
+    Serial.println("Something else");
   }
 }
 ```
 
-## Przegląd urządzeń
+<span style="color:#f25022; font-weight: 700;"> Z przesłanymi danymi w formie testkowej możemy zrobić bardzo wiele rzeczy, można je np. rzutować na inne typy danych. </span>
+
+<h2 style="color:#ffb900">PRZEGLĄD URZĄDZEŃ</h2>
 
 Od razu na wstępie zaznaczę, że nie wszystko w tym poradniku będzie wytłumaczone od deski do deski, bardziej skupimy się na przykładach użycia. Także, do dzieła!
 
@@ -290,14 +291,14 @@ Ostanią metodą z pakiety Ekran LED - jest nic bardziej prostrzego, a konkretni
 ```cpp
 ledMtx_1.clearScreen()
 ```
-<span style="color:red; font-weight: 700;"> Ekran LED posiada również wspomnianą funkcję wyświetlania bitmapy, jednak nie będziemy jej używać z poziomu czystego kodu. Można potestować tą funkcjonalność w blokowym systemie budowania oprogramowania dla mBot. </span>
+<span style="color:#f25022; font-weight: 700;"> Ekran LED posiada również wspomnianą funkcję wyświetlania bitmapy, jednak nie będziemy jej używać z poziomu czystego kodu. Można potestować tą funkcjonalność w blokowym systemie budowania oprogramowania dla mBot. </span>
 
-### No. 4 - X
+### No. 4 - NAPĘD
 ***
 
+Nasze cudowne urządzenie posiada potężne narzędzia w postaci napędu na dwa koła.
 
-
-## STEROWANIE UŻYTKOWNIKA
+<h2 style="color:#ffb900">STEROWANIE UŻYTKOWNIKA</h2>
 
 Nasz pakiet daje nam możliwość na zewnętrzne sterowanie robotem w dwojaki sposób. Pierwszy to **przycisk na płytce**
 
@@ -310,5 +311,3 @@ a drugi to dołączany osobno do pakietu **pilot**
 ### Oba te urządzenia możemy wykorzystać do sterowania naszym robotem
 
 Ale właściwie jak to działa?
-
-## KONSOLA - SERIAL MONITOR
