@@ -1,7 +1,3 @@
-Wygeneruj pdf za pomocą https://www.markdowntopdf.com/
-
-Będzie trzeba prawdopodobnie zuploadować ss żeby wygenerować pdfa
-
 <h1 style="color:#7fba00">Podręcznik użytkownika dla <b>mBot</b> przy użycia języku <span style="color:#00a4ef">Arduino</span></h1>
 
 Informacje zawarte w tym podręczniku mogą zawierać błędy, dziękuję za wyrozumiałość.
