@@ -286,7 +286,7 @@ _delay(1);
 ledMtx_1.showNum(10.1); // 4 znaki wraz z kropką
 ```
 
-Ostanią metodą z pakiety Ekran LED - jest nic bardziej prostrzego, a konkretnie to czyszczenie tego ekranu. Metoda _clearScreen_ czyści nam ekran.
+Ostanią metodą dostępną z poziomu ekranu LED, jest metoda _clearScreen_, która wyczyści nam ekran.
 
 ```cpp
 ledMtx_1.clearScreen()
@@ -297,6 +297,64 @@ ledMtx_1.clearScreen()
 ***
 
 Nasze cudowne urządzenie posiada potężne narzędzia w postaci napędu na dwa koła.
+
+Obsługa jest dosyć prosta, wystarczy zainicjować nasze silniki w programie, wskazując na których PIN'ach będą działały, u nas jest to PIN 9 i 10.
+
+```cpp
+MeDCMotor motor_9(9);
+MeDCMotor motor_10(10);
+```
+
+Następnie mamy możliwość wywołania ruchu koła! Można to zrobić przy pomocy metody _run(int speed)_. Zakres podawanej prędkości mieści się w przedziale **-255** do **255**. W zależności od tego czy nasza wartośc będzie dodatnia czy ujemna, koło będzie kręciło się w inną stronę. Oczywiście, czym wyższa wartość w jedną lub drugą stronę, tym wyższa prędkość obracania się kół.
+
+```cpp
+motor_9.run(-250);
+motor_10.run(250);
+```
+
+Aby sprawa była nieco prostrza, zbudujmy sobie funkcję, która pomoże nam w operowaniu mBotem.
+
+```cpp
+void move(int direction, int powerPercentage) {
+  int speed = powerPercentage / 100.0 * 255;
+  int leftSpeed = 0;
+  int rightSpeed = 0;
+  if(direction == 1) {
+    leftSpeed = -speed;
+    rightSpeed = speed;
+  } else if(direction == 2) {
+    leftSpeed = speed;
+    rightSpeed = -speed;
+  } else if(direction == 3) {
+    leftSpeed = speed;
+    rightSpeed = speed;
+  } else if(direction == 4) {
+    leftSpeed = -speed;
+    rightSpeed = -speed;
+  }
+  motor_9.run(leftSpeed);
+  motor_10.run(rightSpeed);
+}
+```
+
+Funkcja ma za zadanie na podstawie przesłanych przez użytkownika dwóch parametrów **speed** oraz **powerPercentage**, uruchomi w odpowiedni sposób oba silniki do napędzania kół.
+
+Parametr _speed_ może przyjąć 4 opcje:
+
+- 1 - jazda na wprost
+- 2 - jazda wstecz
+- 3 - skręt w lewo (w miejscu)
+- 4 - skręt w prawo (w miejscu)
+
+Oczywiście po odpowiedniej modyfikacji będziemy w stanie upłynnić co nieco skręcianie naszej maszyny, aby nie poruszała się jedynie "kwadratowo".
+
+Drugi parametr _powerPercentage_ przyjmuje wartość z zakresu **0-100**, określającą procent mocy z jakimi mają być napędzone oba koła.
+
+> TIP: będziemy mogli wplywać na to w jaki sposób się poruszamy np. poprzez zewnętrzny pilot
+
+### No. 5 - 
+***
+
 
 <h2 style="color:#ffb900">STEROWANIE UŻYTKOWNIKA</h2>
 
