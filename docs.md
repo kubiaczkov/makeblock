@@ -1,7 +1,3 @@
-Wygeneruj pdf za pomocą https://www.markdowntopdf.com/
-
-Będzie trzeba prawdopodobnie zuploadować ss żeby wygenerować pdfa
-
 <h1 style="color:#7fba00">Podręcznik użytkownika dla <b>mBot</b> przy użycia języku <span style="color:#00a4ef">Arduino</span></h1>
 
 Informacje zawarte w tym podręczniku mogą zawierać błędy, dziękuję za wyrozumiałość.
@@ -315,7 +311,7 @@ motor_10.run(250);
 Aby sprawa była nieco prostrza, zbudujmy sobie funkcję, która pomoże nam w operowaniu mBotem.
 
 ```cpp
-void move(int direction, int powerPercentage) {
+void _move(int direction, int powerPercentage) {
   int speed = powerPercentage / 100.0 * 255;
   int leftSpeed = 0;
   int rightSpeed = 0;
@@ -350,10 +346,37 @@ Oczywiście po odpowiedniej modyfikacji będziemy w stanie upłynnić co nieco s
 
 Drugi parametr _powerPercentage_ przyjmuje wartość z zakresu **0-100**, określającą procent mocy z jakimi mają być napędzone oba koła.
 
+Na liście metod znajduje się również metoda na zatrzymanie naszego silnika.
+
+```cpp
+motor_9.stop();
+motor_10.stop();
+```
+
 > TIP: będziemy mogli wplywać na to w jaki sposób się poruszamy np. poprzez zewnętrzny pilot
 
-### No. 5 - 
+### No. 5 - CZUJNIK NATĘŻENIA ŚWIATŁA
 ***
+
+Jesteśmy uzbrojemi w narzędzie do zmierzenia natężenia światła w otoczeniu.
+Aby z niego korzystać trzeba odpowiednio zadeklarować nasz sensor.
+
+```cpp
+MeLightSensor lightsensor_6(6);
+```
+Następnie wystarczy wykonać odczyt:
+
+```cpp
+lightsensor_6.read();
+```
+Wynikiem działania metody _read_ jest wartość **int16**.
+
+> TIP: można wykorzystać ekran LED lub Serial monitor aby odczytać "na żywo" jakie mamy natężenie światła w otoczeniu 
+
+
+### No. 6 - CZUJNIK ODLEGŁOŚCI
+***
+
 
 
 <h2 style="color:#ffb900">STEROWANIE UŻYTKOWNIKA</h2>
