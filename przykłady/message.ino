@@ -10,12 +10,12 @@ void _delay(float seconds) {
   while (millis() < endTime) _loop();
 }
 
-//! A LED screen can only contains 3 letter text
+//! Ekran LED może pomieścić jedynie 3 znaki
 /*!
-  \param a first letter.
-  \param b second letter.
-  \param c third letter.
-  \return Three chars long input String.
+  \param a pierwszy znak.
+  \param b drugi znak.
+  \param c trzeci znak.
+  \return Trzy znakowy wyjściowy tekst.
 */
 String getMessage(char a, char b, char c) {
   String output = "";
