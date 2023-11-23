@@ -426,10 +426,35 @@ Nasz pakiet daje nam możliwość na zewnętrzne sterowanie robotem w dwojaki sp
 
 [<img src="./ss/przycisk_na_plytce.jpg" width="400"/>](./ss/przycisk_na_plytce.jpg)
 
-a drugi to dołączany osobno do pakietu **pilot**
+Drugi sposób sterowania to dołączany osobno do pakietu **pilot**.
 
 [<img src="./ss/pilot.jpg" width="400"/>](./ss/pilot.jpg)
 
-### Oba te urządzenia możemy wykorzystać do sterowania naszym robotem
+<span style="color:#00a4ef; font-weight: 700;">Oba te urządzenia możemy wykorzystać do sterowania naszym robotem. Ale właściwie jak to działa?
+</span>
 
-Ale właściwie jak to działa?
+### PRZYCISK NA PŁYTCE
+
+Jest to wbudowany komponent, który możemy po prostu wciskać. Aby skorzystać z niego w programie, musimy trochę poczarować z pinami, a konkretnie będziemy musieli ustawić odpowiedni tryb dla odpowiedniego pinu.
+
+```cpp
+pinMode(A7, INPUT);
+```
+
+Następnie dzieje się jeszcze więcej magii, ale żeby nie musieć wszystkiego tłumaczyć, stworzymy sobie fajną funkcję :)
+
+```cpp
+bool _checkButton() {
+  if ((!(0 ^ (analogRead(A7) > 10 ? 0 : 1)))) {
+    return true;
+  } else {
+    return false;
+  }
+}
+```
+
+Jedynie co przyjdzie nam wiedzieć na jej temat to to, że kiedy przycisk zostanie wciśnięty zwróci nam ona wartość **true**, w innym przypadku **false**.
+
+> TIP: aby optymalnie wykorzystać możliwości przycisku warto zastosować tą funkcję w parze z pętlą _while_, można podpatrzeć w przykładzie _alert_on_button_clic.ino_
+
+### PILOT
