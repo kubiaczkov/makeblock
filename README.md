@@ -373,7 +373,6 @@ Wynikiem działania metody _read_ jest wartość **int16**.
 
 > TIP: można wykorzystać ekran LED lub Serial monitor aby odczytać "na żywo" jakie mamy natężenie światła w otoczeniu 
 
-
 ### No. 6 - CZUJNIK ODLEGŁOŚCI
 ***
 
@@ -392,9 +391,34 @@ ultrasonic_3.distanceCm()
 ```
 Funkcja zwróci nam wartość typu **double**, którą możemy użyć chociażby w warunku _if_.
 
-
 <span style="color:#f25022; font-weight: 700;"> Dokładny pomiar rozpoczyna się od ok 4 cm (przy krótszych odległościach sensor jest w stanie zadziałać odpowiednio, jednak nie ze 100% poprawnością). Najwyższą testowaną odległością było 50 cm. </span>
 
+### No. 7 - CZUJNIK CZARNEJ LINII
+***
+
+Do grona naszych czujników, możemy dorzucić czujnik wykrywający czarną linię. Domyślnym punktem montażu jest spód naszego mBota. Jak zawsze rozpoczynamy od inicjalizacji. W parametrze przekazujemy numer portu podłączenia czujnika.
+
+```cpp
+MeLineFollower linefollower_2(2);
+```
+
+Nasz czujnik, to tak na prawdę **para czujników**. Dlatego jesteśmy w stanie sprawdzać różne kombinacje. Możemy to zrobić dzięki metodzie _readSensors()_
+
+```cpp
+linefollower_2.readSensors()
+```
+
+Metoda zwraca wartości:
+
+- 0 - aktywacja obu sensorów
+- 1 - aktywacja lewego sensora
+- 2 - aktywacja prawego sensora
+- 3 - oba sensory nieaktywne
+
+
+> TIP: sensory aktywują się również przy odpowiedniej odległości od podłoża, dlatego można je wykorzystać również jako detekcję krawędzi
+
+<span style="color:#f25022; font-weight: 700;"> UWAGA: aktywacja jednego sensora nie odpowiada aktywacji obu sensorom! </span>
 
 <h2 style="color:#ffb900">STEROWANIE UŻYTKOWNIKA</h2>
 

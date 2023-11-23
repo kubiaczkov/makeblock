@@ -17,7 +17,7 @@ void _delay(float seconds) {
 
 void setup() {
   while(1) {
-      if(linefollower_2.readSensors() == 0.000000){
+      if(linefollower_2.readSensors() == 0){
 
         buzzer.tone(440, 0.25 * 1000);
         _delay(0.02);
