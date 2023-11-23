@@ -4,7 +4,7 @@ Informacje zawarte w tym podręczniku mogą zawierać błędy, dziękuję za wyr
 
 IDE wykorzystywane do **programowania urządzenia online** mBot v1.1. dostępne pod linkiem: https://ide.mblock.cc/
 
-Kiedy chcemy używać jedynie kodu Arduino o wiele wygodniej będzie nam pracować w **Arduino IDE**, instrukcja konfiguracji oprogramowania znajduje się w folderze dosc.
+Kiedy chcemy używać jedynie kodu Arduino o wiele wygodniej będzie nam pracować w **Arduino IDE**, [instrukcja konfiguracji oprogramowania](./docs/ArduinoIDE.md).
 
 <h2 style="color:#ffb900">Instalacja wymaganego oprogramowania</h2> 
 
@@ -16,7 +16,7 @@ Jeżeli chcemy wgrywać programy do naszego mBota przy pomocy połączenia kablo
 
 Wybieramy oprogramowanie odpowiednie dla naszego systemu. 
 
-<span style="color:#f25022; font-weight: 700;"> Poniższe czynności na podłączonym oraz uruchomionym urządzeniu! </span>
+> <span style="color:#f25022; font-weight: 700;"> Poniższe czynności na podłączonym oraz uruchomionym urządzeniu! </span>
 
 Przechodząc poprzez proces instalacji, poza samym oprogramowaniem mLink instalujemy również odpowiednie sterowniki.
 
@@ -47,7 +47,7 @@ Aby uruchomić napisany program, trzeba aktywować odpowiednią zakładkę "Ardu
 
 Naszym oczom ukaże się edytor tekstowy z otwartym plikiem **mcore.ino**
 
-<span style="color:#f25022; font-weight: 700;"> UWAGA: nie zmieniamy jego nazwy ani rozszerzenia! </span>
+> <span style="color:#f25022; font-weight: 700;"> UWAGA: nie zmieniamy jego nazwy ani rozszerzenia! </span>
 
 <h2 style="color:#ffb900">HELLO WORLD</h2>
 
