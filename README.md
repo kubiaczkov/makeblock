@@ -377,6 +377,23 @@ Wynikiem działania metody _read_ jest wartość **int16**.
 ### No. 6 - CZUJNIK ODLEGŁOŚCI
 ***
 
+Pomóc nam poruszać się w przestrzeni może czujmik **Me Ultrasonic Sensor v3.0**. Jest to czujnik ultradźwiękowy, który pozwala na odczytanie odległości od sensora w **cm** oraz **calach**.
+
+Oczywiście rozpoczynamy od zainicjowania naszego czujnika. Jako parametr przekazujemy **numer portu** do którego jest podłączony czujnuj, w naszym przypadku nr. 3. 
+
+```cpp
+MeUltrasonicSensor ultrasonic_3(3);
+```
+
+Następnie przechodzimy do odpowiedniego pomiaru.
+
+```cpp
+ultrasonic_3.distanceCm()
+```
+Funkcja zwróci nam wartość typu **double**, którą możemy użyć chociażby w warunku _if_.
+
+
+<span style="color:#f25022; font-weight: 700;"> Dokładny pomiar rozpoczyna się od ok 4 cm (przy krótszych odległościach sensor jest w stanie zadziałać odpowiednio, jednak nie ze 100% poprawnością). Najwyższą testowaną odległością było 50 cm. </span>
 
 
 <h2 style="color:#ffb900">STEROWANIE UŻYTKOWNIKA</h2>
