@@ -166,7 +166,7 @@ void loop() {
 }
 ```
 
-<span style="color:#f25022; font-weight: 700;"> Z przesłanymi danymi w formie testkowej możemy zrobić bardzo wiele rzeczy, można je np. rzutować na inne typy danych. </span>
+> <span style="color:#f25022; font-weight: 700;"> Z przesłanymi danymi w formie testkowej możemy zrobić bardzo wiele rzeczy, można je np. rzutować na inne typy danych. </span>
 
 <h2 style="color:#ffb900">PRZEGLĄD URZĄDZEŃ</h2>
 
@@ -287,7 +287,7 @@ Ostanią metodą dostępną z poziomu ekranu LED, jest metoda _clearScreen_, kt�
 ```cpp
 ledMtx_1.clearScreen()
 ```
-<span style="color:#f25022; font-weight: 700;"> Ekran LED posiada również wspomnianą funkcję wyświetlania bitmapy, jednak nie będziemy jej używać z poziomu czystego kodu. Można potestować tą funkcjonalność w blokowym systemie budowania oprogramowania dla mBot. </span>
+> <span style="color:#f25022; font-weight: 700;"> Ekran LED posiada również wspomnianą funkcję wyświetlania bitmapy, jednak nie będziemy jej używać z poziomu czystego kodu. Można potestować tą funkcjonalność w blokowym systemie budowania oprogramowania dla mBot. </span>
 
 ### No. 4 - NAPĘD
 ***
@@ -391,7 +391,7 @@ ultrasonic_3.distanceCm()
 ```
 Funkcja zwróci nam wartość typu **double**, którą możemy użyć chociażby w warunku _if_.
 
-<span style="color:#f25022; font-weight: 700;"> Dokładny pomiar rozpoczyna się od ok 4 cm (przy krótszych odległościach sensor jest w stanie zadziałać odpowiednio, jednak nie ze 100% poprawnością). Najwyższą testowaną odległością było 50 cm. </span>
+> <span style="color:#f25022; font-weight: 700;"> Dokładny pomiar rozpoczyna się od ok 4 cm (przy krótszych odległościach sensor jest w stanie zadziałać odpowiednio, jednak nie ze 100% poprawnością). Najwyższą testowaną odległością było 50 cm. </span>
 
 ### No. 7 - CZUJNIK CZARNEJ LINII
 ***
@@ -418,7 +418,7 @@ Metoda zwraca wartości:
 
 > TIP: sensory aktywują się również przy odpowiedniej odległości od podłoża, dlatego można je wykorzystać również jako detekcję krawędzi
 
-<span style="color:#f25022; font-weight: 700;"> UWAGA: aktywacja jednego sensora nie odpowiada aktywacji obu sensorom! </span>
+> <span style="color:#f25022; font-weight: 700;"> UWAGA: aktywacja jednego sensora nie odpowiada aktywacji obu sensorom! </span>
 
 <h2 style="color:#ffb900">STEROWANIE UŻYTKOWNIKA</h2>
 
@@ -430,7 +430,7 @@ Drugi sposób sterowania to dołączany osobno do pakietu **pilot**.
 
 [<img src="./ss/pilot.jpg" width="400"/>](./ss/pilot.jpg)
 
-<span style="color:#00a4ef; font-weight: 700;">Oba te urządzenia możemy wykorzystać do sterowania naszym robotem. Ale właściwie jak to działa?
+> <span style="color:#00a4ef; font-weight: 700;">Oba te urządzenia możemy wykorzystać do sterowania naszym robotem. Ale właściwie jak to działa?
 </span>
 
 ### PRZYCISK NA PŁYTCE
