@@ -458,3 +458,60 @@ Jedynie co przyjdzie nam wiedzieć na jej temat to to, że kiedy przycisk zostan
 > TIP: aby optymalnie wykorzystać możliwości przycisku warto zastosować tą funkcję w parze z pętlą _while_, można podpatrzeć w przykładzie _alert_on_button_clic.ino_
 
 ### PILOT
+
+Pilot jako urządzenie zewnętrzne musimy zaimportować w naszym programie.
+
+```cpp
+MeIR ir;
+```
+
+Nastepnie czekają nas dwie dodatkowe konfiguracje. Wewnątrz funkcji _setup_ musimy rozpocząć nasłuchiwanie naszego pilota.
+
+```cpp
+void setup() {
+  ir.begin();
+  ...
+} 
+```
+
+Jednak to nie wszystko, aby pilot był nasłuchiwany stale, potrzebna będzie ingerencja w funkcję __loop_.
+
+```cpp
+void _loop() {
+  ir.loop();
+}
+```
+
+Teraz mamy przeprowadzoną pełną konfigurację i możemy oprogramować interakcję z naszym pilotem! Będziemy robić to podobnie jak z przyciskiem na płytce, najlepiej współproacować z **pętlą while**. Do odczytania wciśniętego przycisku na pilocie posłuży nam funkcja _ir.keyPressed(numOfButton)_.
+
+```cpp
+ir.keyPressed(21)
+```
+
+Funkcja zwraca wartości **true** oraz **false**. Przyjmuje ona jeden parametr - numer przycisku. Opis wszystkich przycisków poniżej:
+
+- A - 69
+- B - 70
+- C - 71
+- D - 68
+- E - 67
+- GÓRA - 64
+- PRAWO - 9
+- DÓŁ - 25
+- LEWO - 7
+- USTAW - 21
+- F - 13
+- 0 - 22
+- 1 - 12
+- 2 - 24
+- 3 - 94
+- 4 - 8
+- 5 - 28
+- 6 - 90
+- 7 - 66
+- 8 - 82
+- 9 - 74
+
+> TIP: wymuszenie programowo wciśnięcia pary przycisków jest możliwe, jednak w rzeczywistości nie działa to zbyt dobrze
+
+
